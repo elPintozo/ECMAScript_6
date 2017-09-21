@@ -199,10 +199,48 @@ mostrar_mensaje();
 saludar_2();
 saludar_2('Hola M3n');
 
+//--Valores del arguments
+console.log('10-Valores del arguments');
+//sin elementos por defecto
+function sumar(a,b,c){
+	console.log(arguments);//existe valores dentro de arguments
+}
+//con elementos por defecto
+function restar(a=1,b=2,c=4){
+	console.log(arguments);//No existen valores dentro de arguments
+}
 
+sumar(1,2,3,4,5,6,"Mensaje importante",{tipo:'Casa',dimension:'50MT2',material:'Hormigon'});
+restar();
+
+//--
+console.log('11-Párametros Rest');
+function add_empleado(arr_alumnos, ...alumnos){
+
+
+	for( let x=0 ; x<alumnos.length ; x++){
+		arr_alumnos.push(alumnos[x]);
+	}
+	return arr_alumnos;
+
+}
+let empleado_1 = ['Ricardo'];
+let empleados = add_empleado(empleado_1, 'Esteban', 'Eduardo','Senén');
+console.log(empleados);
+
+//-- Operador Spread
+console.log('12- Operador Spread');
+console.log('-- Antes --');
+let numeros_1 = [1,2,3,4,38,5,102,342];
+let max_1 = Math.max.apply(Math, numeros_1);
+console.log(max_1);
+console.log('-- Ahora --');
+let numeros_2 = [1,2,3,4,38,5,102,342];
+var max_2 = Math.max(...numeros_2);
+console.log(max_2);
 /*
 //--
-console.log('8-');
+console.log('13-');
 console.log('-- Antes --');
 console.log();
 console.log('-- Ahora --');
