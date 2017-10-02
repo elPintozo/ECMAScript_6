@@ -194,10 +194,10 @@ function mostrar_mensaje(fn = funcion_predeterminada, Personaje_1={nombre:'Ricar
 function funcion_predeterminada(){
 	console.log('Soy un mensaje salvaje');
 }
-saludo();
-mostrar_mensaje();
-saludar_2();
-saludar_2('Hola M3n');
+//saludo();
+//mostrar_mensaje();
+//saludar_2();
+//saludar_2('Hola M3n');
 
 //--Valores del arguments
 console.log('10-Valores del arguments');
@@ -230,17 +230,148 @@ console.log(empleados);
 
 //-- Operador Spread
 console.log('12- Operador Spread');
+
 console.log('-- Antes --');
 let numeros_1 = [1,2,3,4,38,5,102,342];
 let max_1 = Math.max.apply(Math, numeros_1);
 console.log(max_1);
+
 console.log('-- Ahora --');
 let numeros_2 = [1,2,3,4,38,5,102,342];
 var max_2 = Math.max(...numeros_2);
 console.log(max_2);
+
+//--Diferencias entre rest y spreac
+console.log('13-Diferencias entre rest y spread');
+
+console.log('-- REST --');
+
+function saludarRest(saludo, ...personas){
+	for(p in personas){
+		console.log(`${saludo} ${personas[p]}`);
+	}
+}
+
+saludarRest('Hi!', 'Pedro','Juan', 'Diego');
+console.log('-- SPREAD --');
+
+function saludarSpread(saludo, ...personas){
+	console.log(`${saludo} ${personas}.`)
+}
+let publico_2 = ['Ricardo','Esteban','Eduardo'];
+saludarSpread('Qué pasa m3n!',publico_2);
+
+let partes_1 = ['pieza 1','pieza 2','pieza 3'];
+let partes_2 = ['pieza 0',...partes_1, 'pieza 4', 'pieza 5'];
+console.log(partes_2);
+
+//--Funciones con flecha =>
+console.log('14-Funciones con flecha =>');
+
+console.log('-- Antes --');
+let arreglo_1 = [1,45,2,6,12,22,4,5];
+//-- función 1
+var miFuncion1 = function(valor){
+	return valor;
+};
+var miFuncion1_1 = function(num1,num2){
+	return num1+num2;
+}
+var miFuncion1_2 = function(){
+	return 'Saludos!';
+}
+var miFuncion1_3 = function(nombre){
+	let saludo = 'Hola!, '+nombre;
+	return saludo;
+}
+var miFuncion1_4 = function(id){
+	return {
+		id:id,
+		nombre:'Libro 1'
+	}
+}
+let ordenado_1 = arreglo_1.sort(function(a,b){return a-b});
+let prueba1 = miFuncion1('PALABRA 1');
+let prueba1_1 = miFuncion1_1(2,2);
+let prueba1_2 = miFuncion1_2();
+let prueba1_3 = miFuncion1_3('Esteban');
+let prueba1_4 = miFuncion1_4(3);
+
+console.log(prueba1);
+console.log(prueba1_1);
+console.log(prueba1_2);
+console.log(prueba1_3);
+console.log(prueba1_4);
+console.log(ordenado_1);
+
+console.log('-- Ahora --');
+var miFuncion2 = valor => valor;
+var miFuncion2_1 = (num1,num2) => num1+num2;
+var miFuncion2_2 = () => '¡Saludos!';
+var miFuncion2_3 = nombre => {
+	var saludo = `Hola!! ${nombre}`;
+	return saludo;
+}
+var miFuncion2_4 = id =>({id:id, nombre:'Libro 2'});
+let ordenado_2 = arreglo_1.sort((a,b)=>a-b);
+let prueba2 = miFuncion2('PALABRA 2');
+let prueba2_1 = miFuncion2_1(4,3);
+let prueba2_2 = miFuncion2_2();
+let prueba2_3 = miFuncion2_3('Eduardo');
+let prueba2_4 = miFuncion2_4(5);
+
+console.log(prueba2);
+console.log(prueba2_1);
+console.log(prueba2_2);
+console.log(prueba2_3);
+console.log(prueba2_4);
+console.log(ordenado_2);
+
+//--Uso del comparador Object.is
+console.log('15-Uso del comparador Object.is');
+console.log('-- Antes --');
+
+console.log(5==5);
+console.log(5=='5');
+console.log(5===5);
+console.log(5==='5');
+console.log('-- Ahora --');
+console.log(Object.is(5,5));
+console.log(Object.is(5,'5'));
+
+//--Heredar funciones de otro objeto
+console.log('16-Heredar funciones de otro objeto');
+console.log('-- Antes --');
+let objeto_1 = {};
+let objeto_2 = {
+	nombre :'Ricardo'
+};
+function mezclar(objectReceptor, objDonador){
+	Object.keys(objDonador).forEach(function(key){
+		objectReceptor[key] = objDonador[key];
+	});
+}
+console.log(objeto_1);
+console.log(objeto_2);
+mezclar(objeto_1,objeto_2);
+console.log(objeto_1);
+
+console.log('-- Ahora --');
+let objeto_3 = {};
+let objeto_4 = {
+	get nombre(){
+		return 'Ricardo';
+	}
+}
+
+console.log(objeto_3);
+console.log(objeto_4);
+Object.assign(objeto_3,objeto_4);
+console.log(objeto_3);
+
 /*
 //--
-console.log('13-');
+console.log('17-');
 console.log('-- Antes --');
 console.log();
 console.log('-- Ahora --');
