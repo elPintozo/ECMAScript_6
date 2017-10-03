@@ -369,9 +369,73 @@ console.log(objeto_4);
 Object.assign(objeto_3,objeto_4);
 console.log(objeto_3);
 
+//--Programación Orientadas a objetos
+console.log('17-Programación Orientadas a objetos');
+let gato = {
+	sonido(){
+		console.log('Miau!!');
+	},
+	chillido(){
+		console.log('MIAU!!!');
+	}
+
+}
+let perro = {
+	sonido(){
+		console.log('Guau!!');
+	},
+	ladrido(){
+		console.log('GUAU!!!');
+	}
+}
+console.log('-- Object Gato');
+
+let angora = Object.create(gato);
+
+console.log( Object.getPrototypeOf(angora)=== gato );
+console.log( Object.is(Object.getPrototypeOf(angora),gato) );
+angora.sonido();
+angora.chillido();
+
+Object.setPrototypeOf(angora,perro);
+console.log('-- Object Perro');
+console.log( Object.getPrototypeOf(angora)===gato );
+console.log( Object.is(Object.getPrototypeOf(angora),gato) );
+angora.sonido();
+angora.ladrido();
+//angora.chillido();
+
+console.log('17.1 - Llamar a funciones de otros objetos');
+
+let objPadre ={
+	saludar(){
+		return 'Hola dice tu padre';
+	}
+}
+let objHijo ={
+	saludar(){
+		//return Object.getPrototypeOf(this).saludar()+', gracias papá'; //antes
+		return super.saludar()+', gracias papá'; 
+	}
+}
+Object.setPrototypeOf(objHijo, objPadre);
+console.log(objHijo.saludar());
+
+console.log('17.2 - Destructuración de objetos');
+let ajustes = {
+	nombre:'Ricardo',
+	email:'correo@hotmail.com',
+	direccion:'Santiago centro',
+	permiso:true
+};
+let {nombre, email, permiso:otroNombre, permiso_2=false, permiso_3:acceso=true} = ajustes;
+
+console.log(nombre, email, otroNombre, permiso_2, acceso);
+
+console.log('17.3 - Destructuración de objetos anidados');
 /*
 //--
-console.log('17-');
+console.log('18-');
 console.log('-- Antes --');
 console.log();
 console.log('-- Ahora --');
