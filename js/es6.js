@@ -433,9 +433,228 @@ let {nombre, email, permiso:otroNombre, permiso_2=false, permiso_3:acceso=true} 
 console.log(nombre, email, otroNombre, permiso_2, acceso);
 
 console.log('17.3 - Destructuración de objetos anidados');
+
+let informacion = {
+	archivo :'archivo_10102017.js',
+	detalle:{
+		nombre:'información importante',
+		fecha:'10/10/2017'	
+	},
+	otroDetalle:{
+		archivo:'archivo_09102017.js',
+		detalle:{
+			nombre:'información importante 2',
+			fecha:'09/10/2017'	
+		}
+	},
+	masOtrosDetalle:{
+		archivo:'archivo_08102017.js',
+		detalle:{
+			user:{
+				nombre:'información importante 3.1',
+				fecha:'07/10/2017'
+			},
+			admin:{
+				nombre:'información importante 3.2',
+				fecha:'07/10/2017'
+			}	
+		}
+	}
+}
+
+console.log('17.3.1 - 1° Forma');
+let {detalle:info_1} = informacion;
+let {otroDetalle:{detalle:otroDetalle}} = informacion;
+let {masOtrosDetalle:{detalle:{user:info_2}}} = informacion;
+
+console.log(info_1);
+console.log(otroDetalle);
+console.log(info_2);
+console.log('17.3.2 - 2° Forma');
+
+let destructuracion_1 = informacion.detalle;
+let destructuracion_2 = informacion.otroDetalle.detalle;
+let destructuracion_3 = informacion.masOtrosDetalle.detalle.user;
+
+console.log(destructuracion_1);
+console.log(destructuracion_2);
+console.log(destructuracion_3);
+
+//--Destructuración de arreglos
+console.log('17.4- Destructuración de arreglos');
+
+let frutas =['fruta_1','fruta_2','fruta_3'];
+let fruta_nueva = 'Manzana';
+let [fruta1,fruta2] = frutas;
+let [,,fruta3] = frutas;
+[fruta_nueva] = frutas;
+
+console.log(fruta1);
+console.log(fruta2);
+console.log(fruta3);
+console.log(fruta_nueva);
+
+console.log('Antes');
+let a =1;
+let b=2;
+let tem;
+tem = a;
+a = b;
+b=tem;
+console.log(a,b);
+console.log('Despues');
+a=1,b=2;
+[a,b] = [b,a];
+console.log(a,b);
+
+//--Destructuración de arreglos anidados
+console.log('17.5- Destructuración de arreglos anidados');
+
+let colores = ['azul',['celeste','amarillo'],'rojo','verder'];
+
+let [color1,[color2]] = colores;
+
+console.log(color1, color2);
+
+let colores_2 = ['amarillo', 'café', 'morado', 'negro', 'blanco'];
+
+[primerColor, ...demasColores] = colores_2;
+
+console.log(primerColor, demasColores);
+
+//--Symbol - Nos sirven para dar nombres a las propiedades de un objetos
+//que podrían tener colisión con otras(libreías, o codigos de terceros)
+console.log('18-Symbol ');
+
+let primerNombre = Symbol('Primer nombre');
+let segundoNombre = Symbol('Segundo nombre');
+
+let programador = {
+	[primerNombre]:'Ricardo'
+};
+programador[segundoNombre] = 'Esteban';
+
+console.log(programador[primerNombre],programador[segundoNombre]);
+console.log(typeof primerNombre,typeof segundoNombre);
+
+let simbolo1 = Symbol('Simbolo');
+let simbolo2 = Symbol('Simbolo');
+
+console.log(simbolo1==simbolo2);
+console.log(simbolo1===simbolo2);
+console.log(Object.is(simbolo1,simbolo2));
+//-----
+console.log('---');
+let userID = Symbol.for('userID');
+let new_user_1 = {};
+
+new_user_1[userID] = 1;
+
+console.log(userID);
+console.log(new_user_1);
+
+let userID2 = Symbol.for('userID');
+
+console.log(new_user_1[userID2 ]);
+console.log(userID==userID2);
+console.log(userID===userID2);
+console.log(Object.is(userID,userID2));
+console.log(Symbol.keyFor(userID));
+
+console.log('---');
+
+let id = Symbol.for('id');
+let activo = Symbol.for('activo');
+
+let persona = {
+	[id] : '123',
+	[activo] : true,
+	nombre: 'Ricardo',
+	apellido : 'Lazo',
+	edad: 26
+};
+
+for( key in persona){
+	console.log(key, persona[key]);
+}
+let simbolos = Object.getOwnPropertySymbols(persona);
+for(i in simbolos){
+	console.log(simbolos[i], Symbol.keyFor(simbolos[i]));
+}
+//-- Variable set - Similar a un arreglo, con funciones propias y sin duplicados
+console.log('19- Variable set o strongset');
+
+let items = new Set();
+items.add(10);
+items.add(5);
+items.add(3);
+items.add(3);
+items.add('3');
+let items2 = new Set([1,2,3,4,5,4,4,45,12,12,3,2,1,2,3,4,5,6]);
+
+console.log('Tamaño 1:',items.size);
+console.log('Item 1:',items);
+
+console.log('Inicial-')
+console.log('Existe el 9 en item:', items.has(9));
+console.log('Item 2:',items2);
+console.log('Tamaño 2:',items2.size);
+
+console.log('Intermedio-')
+items2.delete(4);
+console.log('Item 2:',items2);
+console.log('Tamaño 2:',items2.size);
+
+console.log('final-')
+items2.clear();
+console.log('Item 2:',items2);
+console.log('Tamaño 2:',items2.size);
+
+items.forEach(function(valor, llave, setOriginal){
+	console.log(valor, llave, setOriginal);
+	console.log(Object.is(items,setOriginal));
+});
+console.log('19.2 - Variable set a Array ');
+let numero = [7,4,5,6,3,12,34,56,87];
+let numero_set = new Set(numero);
+console.log('array:',numero);
+console.log('Set:',numero_set);
+let numero_array = [...numero_set];
+console.log('set to array:',numero_array);
+
+//--Maps
+console.log('20-Maps');
+let mapa = new Map();
+mapa.set('Nombre_1','ricardo');
+mapa.set('Nombre_2','Esteban');
+mapa.set('Edad_1',14);
+mapa.set('Edad_2',26);
+
+console.log(mapa);
+console.log(mapa.size);
+console.log(mapa.get('Nombre_1'));
+console.log(mapa.get('Nombre_2'));
+console.log(mapa.has('Nombre_1'));
+console.log(mapa.has('edad'));
+console.log(mapa.get('Edad_1'));
+console.log(mapa.get('Edad_2'));
+console.log('---');
+mapa.delete('Edad_1');
+mapa.set('Edad_2');
+console.log(mapa.get('Edad_1'));
+console.log(mapa.get('Edad_2'));
+console.log(mapa);
+console.log(mapa.size);
+mapa.clear();
+console.log(mapa);
+console.log(mapa.size);
+
+
+
+
 /*
 //--
-console.log('18-');
+console.log('21-');
 console.log('-- Antes --');
 console.log();
 console.log('-- Ahora --');
