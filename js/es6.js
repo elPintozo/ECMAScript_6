@@ -625,13 +625,27 @@ console.log('set to array:',numero_array);
 //--Maps
 console.log('20-Maps');
 let mapa = new Map();
+let mapa2 = new Map([['Llave1','123'],[true,'acá']]);
 mapa.set('Nombre_1','ricardo');
 mapa.set('Nombre_2','Esteban');
 mapa.set('Edad_1',14);
 mapa.set('Edad_2',26);
 
+console.log('mapa2:',mapa2);
+console.log('mapa2:',mapa2.size);
+console.log(mapa2.get(true));
+
 console.log(mapa);
 console.log(mapa.size);
+console.log('---forEach');
+mapa.forEach(function(valor,llave, mapaOrigen){
+	console.log('Valor:',valor);
+	console.log('Llave:',llave);
+	console.log('Mapa Original:',mapaOrigen);
+});
+mapa.forEach((valor,llave) => console.log(valor,llave));
+
+console.log('---');
 console.log(mapa.get('Nombre_1'));
 console.log(mapa.get('Nombre_2'));
 console.log(mapa.has('Nombre_1'));
@@ -649,12 +663,121 @@ mapa.clear();
 console.log(mapa);
 console.log(mapa.size);
 
+//--Ciclo For-Of
+console.log('21-Ciclo For-Of');
+let nuevos_numeros = [9,8,7,6,5,4,3,2,1,10,43,23];
+let curso = [
+	{nombre:"Ricardo", edad:18, ubicacion:'Rancagua' },
+	{nombre:"Ricardo", edad:26, ubicacion:'Santiago' },
+	{nombre:"Ricardo", edad:20, ubicacion:'Curico' },
+	{nombre:"Ricardo", edad:1, ubicacion:'Chile' },
+];
+let participantes = new Set();
+participantes.add({nombre:'participante 1', promedio:5});
+participantes.add({nombre:'participante 2', promedio:4});
+participantes.add({nombre:'participante 3', promedio:3});
+participantes.add({nombre:'participante 4', promedio:4});
+participantes.add({nombre:'participante 5', promedio:7});
+
+let amigos = new Map([ ['nombre 1','Amigo 1'], ['nombre 2','Amigo 2'], ['nombre 3','Amigo 3'], ['nombre 4','Amigo 4']]);
+
+console.log('-- Antes --');
+for(let i=0;i<nuevos_numeros.length;i++){
+	console.log(nuevos_numeros[i]);
+}
+console.log('-');
+for(let x in nuevos_numeros){
+	console.log(nuevos_numeros[x]);
+}
+
+console.log('-- Ahora --');
+for(let y of nuevos_numeros){
+	console.log(y);
+}
+for(let persona of curso){
+	console.log(persona);
+}
+for(let p of participantes){
+	console.log(p.nombre, p.promedio);
+}
+for (let a of amigos){
+	console.log(a);
+}
+
+//--Clases
+console.log('22- Clases');
+
+console.log('-- Antes --');
+function Clase_uno(nombre){
+	this.nombre = nombre;
+	this.gritarNombre=function(){
+		console.log(this.nombre);
+	}
+}
+Clase_uno.prototype.decirNombre = function(){
+	console.log(this.nombre);
+}
+let ob_1 = new Clase_uno('Pedro');
+ob_1.gritarNombre();
+ob_1.decirNombre();
 
 
+console.log('-- Ahora --');
+//metodo computado
+let callar = 'callar';
+class Clase_dos{
+	constructor(nombre){
+		this.nombre = nombre;
+	}
+	decirNombre(){
+		console.log(this.nombre);
+	}
 
+	[callar](){
+		console.log('shhh!');
+	}
+	//metodo estatico
+	static saludo(){
+		console.log('Hola!');
+	}
+}
+let Luis = new Clase_dos('Luis');
+Luis.decirNombre();
+Luis.callar();
+Clase_dos.saludo();
+
+//--Herencia de clases
+console.log('23-Herencia de clases');
+
+class Clase_Padre{
+	constructor(edad, estatura){
+		this.edad = edad;
+		this.estatura = estatura;
+	}
+	decirEdad(){
+		console.log('Tengo',this.edad,'años');
+	}
+}
+class Clase_Hijo extends Clase_Padre{
+	constructor(edad,estatura,estaoCivil){
+		super(edad,estatura);
+		this.estaoCivil = estaoCivil;
+	}
+	isCasado(){
+		console.log(this.estaoCivil);
+	}
+}
+
+let papi_1 = new Clase_Padre(30,178);
+let hijo_1 = new Clase_Hijo(21,170,true);
+hijo_1.decirEdad();
+hijo_1.isCasado();
+
+console.log( hijo_1 instanceof Clase_Hijo);
+console.log( hijo_1 instanceof Clase_Padre);
 /*
 //--
-console.log('21-');
+console.log('24-');
 console.log('-- Antes --');
 console.log();
 console.log('-- Ahora --');
